@@ -1,7 +1,7 @@
 .app {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
   position: relative;
 }
@@ -789,9 +789,13 @@
     display: none;
   }
 
-  /* Shorten tab labels on small screens */
+  /* Compact tabs for narrow screens (iPhone 17 = 393pt) */
+  .floating-tabs {
+    max-width: calc(100vw - 24px);
+  }
+
   .floating-tab {
-    padding: 10px 12px;
+    padding: 10px 10px;
     font-size: 0.75rem;
     min-height: 44px;
   }
@@ -820,5 +824,11 @@
 
   .commute-detail {
     font-size: 0.75rem;
+  }
+
+  /* Prevent refresh timestamp overlapping legend */
+  .refresh-timestamp {
+    left: auto;
+    right: calc(12px + env(safe-area-inset-right));
   }
 }
