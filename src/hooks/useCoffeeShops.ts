@@ -16,7 +16,7 @@ export interface CoffeeShop {
  * by scripts/fetch-coffee.mjs. The Foursquare Places API doesn't support
  * CORS, so we pre-fetch server-side during the build.
  */
-export function useCoffeeShops(_center: [number, number]) {
+export function useCoffeeShops() {
   const [shops, setShops] = useState<CoffeeShop[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

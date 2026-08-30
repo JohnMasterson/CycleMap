@@ -98,8 +98,13 @@ function useWalkingRoutes(shops: CoffeeShop[]) {
 
   useEffect(() => {
     const controller = new AbortController();
-    fetchRoutes(controller.signal);
-    return () => controller.abort();
+    const timeoutId = window.setTimeout(() => {
+      void fetchRoutes(controller.signal);
+    }, 0);
+    return () => {
+      window.clearTimeout(timeoutId);
+      controller.abort();
+    };
   }, [fetchRoutes]);
 
   return routes;
@@ -112,7 +117,7 @@ function ratingColor(rating: number): string {
 }
 
 export function CoffeeMap() {
-  const { shops, loading, error } = useCoffeeShops(OFFICE);
+  const { shops, loading, error } = useCoffeeShops();
   const routes = useWalkingRoutes(shops);
   const [selectedShop, setSelectedShop] = useState<string | null>(null);
 
