@@ -10,4 +10,14 @@ permissions:
 
 jobs:
   label:
-    uses: JohnMasterson/jaycloud-factory-floor/.github/workflows/reusable-label-codex-pr.yml@main
+    if: github.event.pull_request.head.repo.full_name == github.repository && (startsWith(github.event.pull_request.head.ref, 'codex/') || startsWith(github.event.pull_request.head.ref, 'agent/'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: ['autonomy:auto'],
+            });
